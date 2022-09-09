@@ -9,7 +9,8 @@ Write a function that takes in a targetSum and an array of integers and returns 
 
 using namespace std;
 
-// O()
+// m = target sum, n = nums.size()
+// O(m*n)
 bool can_sum(int target, vector<int> nums, unordered_map<int, bool> &memo) {
     if (memo.count(target) > 0) return memo[target];
     if (target < 0) return false;
