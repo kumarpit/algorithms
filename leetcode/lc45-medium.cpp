@@ -14,6 +14,7 @@ You can assume that you can always reach the last index.
 using namespace std;
 
 // works, but time complexity????
+// what about space complexity?
 int jump(vector<int> nums, int curr, unordered_map<int, int> &memo) {
     if (memo.count(curr) > 0) return memo[curr];
     if (curr >= nums.size() - 1) return 0;
@@ -33,8 +34,27 @@ int jump(vector<int> nums, int curr, unordered_map<int, int> &memo) {
     return least;
 }
 
+// O(n)
+int faster_jump(vector<int> nums) {
+    int res = 0;
+    int l, r;
+    l = r = 0;
+
+    while (r < nums.size() - 1) {
+        int farthest = 0;
+        for (int i = l; i <= r; i++) {
+            farthest = max(farthest, i + nums[i]);
+        }
+        l = r + 1;
+        r = farthest;
+        res++;
+    }
+
+    return res;
+}
+
 int main() {
     unordered_map<int, int> map;
-    vector<int> ints = {3,2,1,0,4};
-    cout << jump(ints, 0, map) << endl;
+    vector<int> ints = {3,2,1,2,4};
+    cout << faster_jump(ints) << endl;
 }
